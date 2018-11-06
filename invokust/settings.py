@@ -7,7 +7,7 @@ from locust.main import load_locustfile
 
 def create_settings(from_environment=False, locustfile=None,
         classes=None, host=None, num_requests=None, num_clients=None,
-        hatch_rate=None):
+        hatch_rate=None, run_time=None):
     '''
     Returns a settings object to be used by a LocalLocustRunner.
 
@@ -20,6 +20,7 @@ def create_settings(from_environment=False, locustfile=None,
         num_requests: number of requests to send
         num_clients: number of clients to simulate in load test
         hatch_rate: number of clients per second to start
+        run_time: number of seconds to locust run (when informed, num_requests will be ignored)
 
     If from_environment is set to True then this function will attempt to set
     the attributes from environment variables. The environment variables are
@@ -35,6 +36,7 @@ def create_settings(from_environment=False, locustfile=None,
     settings.num_requests = num_requests
     settings.num_clients = num_clients
     settings.hatch_rate = hatch_rate
+    settings.run_time = run_time
 
     # Default settings that are not to be changed
     settings.no_web = True
@@ -47,9 +49,10 @@ def create_settings(from_environment=False, locustfile=None,
     settings.logfile = None
     settings.show_task_ratio = False
     settings.print_stats = False
+    settings.reset_stats = False
 
     if from_environment:
-        for attribute in ['locustfile', 'classes', 'host', 'num_requests', 'num_clients', 'hatch_rate']:
+        for attribute in ['locustfile', 'classes', 'host', 'num_requests', 'num_clients', 'hatch_rate', 'run_time']:
             var_name = 'LOCUST_{0}'.format(attribute.upper())
             var_value = os.environ.get(var_name)
             setattr(settings, attribute, var_value)
@@ -70,7 +73,7 @@ def create_settings(from_environment=False, locustfile=None,
                 # This needs fixing
                 settings.classes[idx] = eval(val)
 
-    for attribute in ['classes', 'host', 'num_requests', 'num_clients', 'hatch_rate']:
+    for attribute in ['classes', 'host', 'num_requests', 'num_clients', 'hatch_rate', 'run_time']:
         val = getattr(settings, attribute, None)
         if not val:
             raise Exception('configuration error, attribute not set: {0}'.format(attribute))
