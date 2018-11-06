@@ -15,7 +15,7 @@ setup(
         'invokust.aws_lambda',
     ],
     install_requires = [
-        'locustio==0.8a2',
+        'locustio',
         'boto3',
         'pyzmq',
         'numpy'
