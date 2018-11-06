@@ -15,13 +15,10 @@ setup(
         'invokust.aws_lambda',
     ],
     install_requires = [
-        'locust',
+        'locustio',
         'boto3',
         'pyzmq',
         'numpy'
-    ],
-    dependency_links = [
-        'git+https://github.com/westwingbrasil/locust.git'
     ],
     keywords = ['testing', 'loadtest', 'lamba', 'locust'],
     classifiers = [
