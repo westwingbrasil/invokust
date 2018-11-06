@@ -20,6 +20,9 @@ setup(
         'pyzmq',
         'numpy'
     ],
+    dependency_links=[
+        'git+https://github.com/westwingbrasil/locust.git'
+    ],
     keywords = ['testing', 'loadtest', 'lamba', 'locust'],
     classifiers = [
         'Topic :: Software Development :: Quality Assurance',
